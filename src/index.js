@@ -3,6 +3,7 @@ import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect';
 import * as THREE from 'three';
 import lavaImg from './textures/lava/lavatile.jpg';
 import cloudImg from './textures/lava/cloud.png';
+import threeToneImg from './textures/threeTone.jpg';
 import XVertex from './shaders/custom2-vertex.glsl';
 import XFragment from './shaders/custom2-fragment.glsl';
 
@@ -28,7 +29,10 @@ function renderThreeJSExample() {
   renderer.autoClear = false;
 
   var clock = new THREE.Clock();
-  var textureLoader = new THREE.TextureLoader();
+  // var textureLoader = new THREE.TextureLoader();
+  var threeTone = new THREE.TextureLoader().load(threeToneImg);
+  threeTone.minFilter = THREE.NearestFilter;
+  threeTone.magFilter = THREE.NearestFilter;
 
   // var uniforms = {
   //  "fogDensity": { value: 0.25 },
@@ -62,6 +66,8 @@ function renderThreeJSExample() {
     reflectivity: 2,
   });
 
+  material.gradientMap = threeTone;
+
   // var geometry = new THREE.TorusBufferGeometry(0.65, 0.3, 60, 30);
 
   var cube = new THREE.Mesh(geometry, material);
@@ -83,7 +89,7 @@ function renderThreeJSExample() {
   scene.add(cube);
 
   let pointLight = new THREE.PointLight(0xdddddd);
-  pointLight.position.set(1,1,1);
+  pointLight.position.set(1,-10,5);
   scene.add(pointLight);
   let ambientLight = new THREE.AmbientLight(0x505050);
   scene.add(ambientLight);
