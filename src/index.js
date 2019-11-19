@@ -46,7 +46,8 @@ function renderThreeJSExample() {
   // uniforms[ "texture1" ].value.wrapS = uniforms[ "texture1" ].value.wrapT = THREE.RepeatWrapping;
   // uniforms[ "texture2" ].value.wrapS = uniforms[ "texture2" ].value.wrapT = THREE.RepeatWrapping;
   // adding things to the Scene
-  var geometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 );
+  // var geometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 );
+  var geometry = new THREE.TorusBufferGeometry(6, 3.5, 20, 100);
 
   var vertexShader = XVertex;
   var fragmentShader = XFragment;
@@ -96,12 +97,12 @@ function renderThreeJSExample() {
 
   camera.position.z = 30;
 
-  let effect = new OutlineEffect(renderer);
+  let effect = new OutlineEffect(renderer, { defaultThickness: 0.007 });
 
   var animate = function() {
     requestAnimationFrame(animate);
-    cube.rotation.x -= 0.002;
-    cube.rotation.y += 0.001;
+    cube.rotation.x -= 0.009;
+    cube.rotation.y += 0.009;
     effect.render(scene, camera);
   }
   animate();
